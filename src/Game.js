@@ -26,31 +26,43 @@ function Game( { playerWins, playerStreak, opponentWins, opponentStreak }) {
     function Rock() {
         GenerateOpponentHand()
         const rockBtn = document.getElementById("rock");
-        const outcome = document.getElementById("tie");
         if (opponentHand === 1) {
+            const outcomeTie = document.getElementById("tie");
             console.log("tie");
             rockBtn.style.backgroundColor = "yellow";
-            outcome.style.display = "inline";
+            rockBtn.style.pointerEvents = "none"
+            outcomeTie.style.display = "inline";
             setTimeout(() => {
                 rockBtn.style.backgroundColor = "transparent"; 
-                outcome.style.display = "none";
+                outcomeTie.style.display = "none";
+                rockBtn.style.pointerEvents = "auto";
             }, 2000);
         }
         else if (opponentHand === 2) {
+            const outcomeLoose = document.getElementById("player-loose");
             console.log("player loose");
             dispatch(playerLossAction());
             rockBtn.style.backgroundColor = "red";
+            rockBtn.style.pointerEvents = "none"
+            outcomeLoose.style.display = "inline";
             setTimeout(() => {
                 rockBtn.style.backgroundColor = "transparent"; 
-            }, 500);
+                rockBtn.style.pointerEvents = "auto";
+                outcomeLoose.style.display = "none";
+            }, 2000);
         }
         else {
+            const outcomeWin = document.getElementById("player-wins");
             console.log("player win");
             dispatch(playerWinAction());
             rockBtn.style.backgroundColor = "green";
+            rockBtn.style.pointerEvents = "none"
+            outcomeWin.style.display = "inline";
             setTimeout(() => {
                 rockBtn.style.backgroundColor = "transparent"; 
-            }, 500);
+                rockBtn.style.pointerEvents = "auto";
+                outcomeWin.style.display = "none";
+            }, 2000);
         }
     }
 
@@ -143,7 +155,6 @@ function Game( { playerWins, playerStreak, opponentWins, opponentStreak }) {
   <h1 id="player-loose">Player Loose!</h1>
   </div>
  
-
   <div className="buttons">
   <button id="rock" onClick={Rock}></button>
   <button id="paper" onClick={Paper}></button>
@@ -157,9 +168,9 @@ function Game( { playerWins, playerStreak, opponentWins, opponentStreak }) {
 const mapStateToProps = (state) => {
     return {
         playerWins: state.playerWin,
-        playerLoose: state.playerLoose,
-        playerWinStreak: state.playerWinStreak,
-        playerLooseStreak: state.playerLooseStreak,
+        opponentWins: state.playerLoose,
+        playerStreak: state.playerWinStreak,
+        opponentStreak: state.playerLooseStreak,
     };
 }
 
