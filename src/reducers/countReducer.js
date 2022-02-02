@@ -1,6 +1,6 @@
 const initialState = {
     playerWinStreak: 0,
-    opponentWinStreak: 0
+    playerLooseStreak: 0,
 }
 
 const countReducer = (state = initialState, action) => {
@@ -8,15 +8,18 @@ const countReducer = (state = initialState, action) => {
         case "ADD_PLAYER_WIN":
             return {
                 ...state,
-                ...state.playerWinStreak + 1
+                playerWinStreak: state.playerWinStreak + 1
             }
-        case "ADD_OPPONENT_WIN":
+        case "ADD_PLAYER_LOSS":
             return {
                 ...state,
-                ...state.opponentWinStreak + 1
+                playerLooseStreak: state.playerLooseStreak + 1
             }
         case "CLEAR_RUN":
             return state = initialState
+        
+    default:
+        return state
     }
 }
 

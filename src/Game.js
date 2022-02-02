@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { opponentWinAction, playerWinAction } from "./actions/countAction";
+import { playerLossAction, playerWinAction } from "./actions/countAction";
 
 function Game() {  
 
@@ -8,10 +8,16 @@ function Game() {
     const [opponentWin, setOpponentWin] = useState(0);
     const dispatch = useDispatch();
 
-    const playerStreak = useSelector((state) => { return state.playerWinStreak });
-    console.log(playerStreak);
+    let playerStreak = 0;
+    let opponentStreak = 0;
+
+    //Get current streak from redux store
+    useSelector((state) => { 
+        playerStreak = state.playerWinStreak 
+        opponentStreak = state.playerLooseStreak 
+    });
     
-    let number = 0;
+    let opponentHand = 0;
 
     
     useEffect(() => {
@@ -19,52 +25,52 @@ function Game() {
     }, [])
 
     function GenerateOpponentHand() {
-        number = Math.floor(Math.random() * (4 - 1) + 1);
-        console.log(number);
+        opponentHand = Math.floor(Math.random() * (4 - 1) + 1);
+        console.log("Opponent hand: ", opponentHand);
         //1 = rock
         //2 = paper
         //3 = scissor
     }
     
-    function Rock() {
-        if (number === 1) {
-            console.log("opponent = rock");
-            console.log("tie");
-        }
-        else if (number === 2) {
-            console.log("opponent = paper");
-            console.log("player loose");
-            setOpponentWin(opponentWin + 1);
-        }
-        else {
-            console.log("player wins");
-            console.log("opponent = scissor");
-            setPlayerWin(playerWin + 1);
-        }
-        GenerateOpponentHand()
-    }
+    // function Rock() {
+    //     if (opponentHand === 1) {
+    //         console.log("opponent = rock");
+    //         console.log("tie");
+    //     }
+    //     else if (opponentHand === 2) {
+    //         console.log("opponent = paper");
+    //         console.log("player loose");
+    //         setOpponentWin(opponentWin + 1);
+    //     }
+    //     else {
+    //         console.log("player wins");
+    //         console.log("opponent = scissor");
+    //         setPlayerWin(playerWin + 1);
+    //     }
+    //     GenerateOpponentHand()
+    // }
 
-    function Paper() {
-        if (number === 1) {
-            console.log("player wins");
-            setPlayerWin(playerWin + 1);
-        }
-        else if (number === 2) {
-            console.log("tie");
-        }
-        else {
-            console.log("player loose");
-            setOpponentWin(opponentWin + 1);
-        }
-        GenerateOpponentHand()
-    }
+    // function Paper() {
+    //     if (opponentHand === 1) {
+    //         console.log("player wins");
+    //         setPlayerWin(playerWin + 1);
+    //     }
+    //     else if (opponentHand === 2) {
+    //         console.log("tie");
+    //     }
+    //     else {
+    //         console.log("player loose");
+    //         setOpponentWin(opponentWin + 1);
+    //     }
+    //     GenerateOpponentHand()
+    // }
 
     function Scissor() {
-        if (number === 1) {
+        if (opponentHand === 1) {
             console.log("player loose");
             setOpponentWin(opponentWin + 1);
         }
-        else if (number === 2) {
+        else if (opponentHand === 2) {
             console.log("player win");
             setPlayerWin(playerWin + 1);
         }
@@ -72,13 +78,14 @@ function Game() {
             console.log("tie");
         }
         GenerateOpponentHand()
+    }
 
-        if (opponentWin === 2) {
-            setPlayerWin(0);
-            setOpponentWin(0);
-
-            //call dispatch, add opponent win to current streak
-            dispatch(opponentWinAction());
+    if (opponentWin === 2) {
+        setPlayerWin(0);
+        setOpponentWin(0);
+    
+         //call dispatch, add player loss to current streak
+         dispatch(playerLossAction());   
 
         }
         else if (playerWin === 2) {
@@ -87,9 +94,7 @@ function Game() {
 
             //call dispatch, add player win to current streak
             dispatch(playerWinAction());
-            
         }
-    }
 
   return <div className="game-page">
 
@@ -101,13 +106,13 @@ function Game() {
 
   <div className="current-streak">
     <h1>Current Streak</h1>
-    {/* <h2>Wins: {playerStreak}</h2> */}
-    <h2>Losses: {}</h2>
+    <h2>Wins: {playerStreak}</h2>
+    <h2>Losses: {opponentStreak}</h2>
   </div>
 
   <div className="buttons">
-    <button id="rock" onClick={Rock}>Rock</button>
-    <button id="paper" onClick={Paper}>Paper</button>
+    {/* <button id="rock" onClick={Rock}>Rock</button>
+    <button id="paper" onClick={Paper}>Paper</button> */}
     <button id="scissor" onClick={Scissor}>Scissor</button>
   </div>
   </div>;

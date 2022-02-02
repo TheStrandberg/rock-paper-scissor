@@ -4,9 +4,9 @@ export const playerWinAction = () => {
     }
 }
 
-export const opponentWinAction = () => {
+export const playerLossAction = () => {
     return {
-        type: "ADD_OPPONENT_WIN"
+        type: "ADD_PLAYER_LOSS"
     }
 }
 
