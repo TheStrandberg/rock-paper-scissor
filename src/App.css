@@ -3,19 +3,93 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: blue;
+  background: linear-gradient(0.25turn,rgb(146, 1, 88), #201777, rgb(0, 179, 179))
 }
 
 .start-page {
   text-align: center;
-  height: 1050px;
+  height: 850px;
   width: 1250px;
   background-color: green;
 }
 
 .game-page {
   text-align: center;
-  height: 1050px;
+  height: 850px;
   width: 1250px;
-  background-color: purple;
+  background-color: rgba(255, 255, 255, 0.164);
+  border-radius: 20px;
+}
+
+#scissors, #paper, #rock {
+  width: 225px;
+  height: 225px;
+  border-radius: 50%;
+  border: 10px solid white;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+#header {
+  font-size: 23px;
+}
+
+.current-score, .current-streak {
+  text-align: right;
+  margin-right: 1rem;
+}
+
+.current-score h2, .current-streak h2 {
+  font-size: 20px;
+}
+
+#rock {
+  background: url("images/rock.png");
+}
+
+#paper {
+  background: url("images/paper.png");
+}
+
+#scissors {
+  background: url("images/scissors.png");
+}
+
+#rock:hover, #paper:hover, #scissors:hover {
+  background-color: rgba(245, 245, 245, 0.144); 
+  cursor: pointer;
+}
+
+#restart-game {
+  background-color: rgb(37, 29, 29);
+  width: 200px;
+  height: 75px;
+  border-radius: 10px;
+  font-size: 23px;
+  color: white;
+}
+
+.outcome {
+  font-size: 25px;
+}
+
+#player-wins {
+  display: none;
+  position: absolute;
+  top: 25%;
+  left: 44%;
+}
+
+#tie {
+  display: none;
+  position: absolute;
+  top: 25%;
+  left: 48%;
+}
+
+#player-loose {
+  display: none;
+  position: absolute;
+  top: 25%;
+  left: 44%;
 }

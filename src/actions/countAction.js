@@ -28,7 +28,7 @@ export const resetGame = () => {
     }
 }
 
-export const resetRun = () => {
+export const clearRun = () => {
     return {
         type: "CLEAR_RUN"
     }
