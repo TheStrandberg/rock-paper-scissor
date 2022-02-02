@@ -1,29 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { playerLossAction, playerWinAction } from "./actions/countAction";
+import { playerLossAction, playerWinAction, resetGame, playerWinStreakAction, playerLossStreakAction } from "./actions/countAction";
+import {connect} from "react-redux";
 
-function Game() {  
+function Game( { playerWins, playerStreak, opponentWins, opponentStreak }) {  
 
-    const [playerWin, setPlayerWin] = useState(0);
-    const [opponentWin, setOpponentWin] = useState(0);
     const dispatch = useDispatch();
-
-    let playerStreak = 0;
-    let opponentStreak = 0;
 
     //Get current streak from redux store
     useSelector((state) => { 
-        playerStreak = state.playerWinStreak 
-        opponentStreak = state.playerLooseStreak 
+        playerWins = state.playerWin; 
+        playerStreak = state.playerWinStreak;
+        opponentWins = state.playerLoose;
+        opponentStreak = state.playerLooseStreak;
     });
-    
-    let opponentHand = 0;
-
     
     useEffect(() => {
         GenerateOpponentHand();
     }, [])
 
+    let opponentHand = 0;
     function GenerateOpponentHand() {
         opponentHand = Math.floor(Math.random() * (4 - 1) + 1);
         console.log("Opponent hand: ", opponentHand);
@@ -68,11 +64,11 @@ function Game() {
     function Scissor() {
         if (opponentHand === 1) {
             console.log("player loose");
-            setOpponentWin(opponentWin + 1);
+            dispatch(playerLossAction());
         }
         else if (opponentHand === 2) {
             console.log("player win");
-            setPlayerWin(playerWin + 1);
+            dispatch(playerWinAction());
         }
         else {
             console.log("tie");
@@ -80,27 +76,23 @@ function Game() {
         GenerateOpponentHand()
     }
 
-    if (opponentWin === 2) {
-        setPlayerWin(0);
-        setOpponentWin(0);
-    
+    if (opponentWins === 2) {
          //call dispatch, add player loss to current streak
-         dispatch(playerLossAction());   
+         dispatch(playerLossStreakAction());   
+         dispatch(resetGame());
 
         }
-        else if (playerWin === 2) {
-            setPlayerWin(0);
-            setOpponentWin(0);
-
+        else if (playerWins === 2) {
             //call dispatch, add player win to current streak
-            dispatch(playerWinAction());
+            dispatch(playerWinStreakAction());
+            dispatch(resetGame());
         }
 
   return <div className="game-page">
 
   <div className="current-score">
-  <h1>Player Win: {playerWin}</h1>
-  <h1>Opponent Win: {opponentWin}</h1>
+  <h1>Player Win: {playerWins}</h1>
+  <h1>Opponent Win: {opponentWins}</h1>
   <h2>Choose!</h2>
   </div>
 
@@ -118,4 +110,13 @@ function Game() {
   </div>;
 }
 
-export default Game;
+const mapStateToProps = (state) => {
+    return {
+        playerWins: state.playerWin,
+        playerLoose: state.playerLoose,
+        playerWinStreak: state.playerWinStreak,
+        playerLooseStreak: state.playerLooseStreak,
+    };
+}
+
+export default connect(mapStateToProps)(Game);
