@@ -3,7 +3,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(0.25turn,rgb(146, 1, 88), #201777, rgb(0, 179, 179))
+  background: linear-gradient(0.25turn,rgb(146, 1, 88), #201777, rgb(0, 179, 179));
 }
 
 .start-page {
@@ -65,7 +65,7 @@ body {
 
 #restart-game {
   margin-top: 5%;
-  background: linear-gradient(0.25turn,rgb(153, 23, 101), rgb(53, 230, 230));
+  background-color: #000000;
   width: 200px;
   height: 75px;
   border-radius: 10px;
@@ -74,27 +74,29 @@ body {
 }
 
 .outcome {
+  width: 350px;
+  height: 50px;
   font-size: 25px;
   color: white;
 }
 
-#player-wins {
+#player-wins, #tie, #player-loose {
   display: none;
-  position: absolute;
-  top: 25%;
-  left: 40%;
+  padding: 1rem;
+  position: relative;
+  bottom: 13rem;
+  left: 28rem;
+  border-radius: 20px;
+}
+
+#player-wins {
+  background: linear-gradient(0.25turn, rgb(37, 167, 25), rgb(16, 144, 112));
 }
 
 #tie {
-  display: none;
-  position: absolute;
-  top: 25%;
-  left: 47%;
+  background: linear-gradient(0.25turn, rgb(181, 190, 46), rgb(229, 238, 108));
 }
 
 #player-loose {
-  display: none;
-  position: absolute;
-  top: 25%;
-  left: 40%;
+  background: linear-gradient(0.25turn, rgb(231, 75, 55), rgb(212, 121, 113));
 }
