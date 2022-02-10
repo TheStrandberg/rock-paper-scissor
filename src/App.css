@@ -61,16 +61,17 @@ body {
 
 .current-score h2, .current-streak h2 {
   font-size: 20px;
+  color: white;
 }
 
 #restart-game {
   margin-top: 5%;
-  background-color: #000000;
+  background-color: #ffffff;
   width: 200px;
   height: 75px;
   border-radius: 10px;
   font-size: 23px;
-  color: white;
+  color: black;
 }
 
 .outcome {
@@ -85,7 +86,7 @@ body {
   padding: 1rem;
   position: relative;
   bottom: 13rem;
-  left: 28rem;
+  left: 28.3rem;
   border-radius: 20px;
 }
 

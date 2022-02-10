@@ -28,7 +28,6 @@ function Game( { playerWins, playerStreak, opponentWins, opponentStreak }) {
         const rockBtn = document.getElementById("rock");
         if (opponentHand === 1) {
             const outcomeTie = document.getElementById("tie");
-            console.log("tie");
             rockBtn.style.backgroundColor = "yellow";
             rockBtn.style.pointerEvents = "none"
             outcomeTie.style.display = "inline";
@@ -40,7 +39,6 @@ function Game( { playerWins, playerStreak, opponentWins, opponentStreak }) {
         }
         else if (opponentHand === 2) {
             const outcomeLoose = document.getElementById("player-loose");
-            console.log("player loose");
             dispatch(playerLossAction());
             rockBtn.style.backgroundColor = "red";
             rockBtn.style.pointerEvents = "none"
@@ -53,7 +51,6 @@ function Game( { playerWins, playerStreak, opponentWins, opponentStreak }) {
         }
         else {
             const outcomeWin = document.getElementById("player-wins");
-            console.log("player win");
             dispatch(playerWinAction());
             rockBtn.style.backgroundColor = "green";
             rockBtn.style.pointerEvents = "none"
@@ -70,27 +67,39 @@ function Game( { playerWins, playerStreak, opponentWins, opponentStreak }) {
         const paperBtn = document.getElementById("paper");
         GenerateOpponentHand()
         if (opponentHand === 1) {
-            console.log("player win");
+            const outcomeWin = document.getElementById("player-wins");
             dispatch(playerWinAction());
             paperBtn.style.backgroundColor = "green";
+            paperBtn.style.pointerEvents = "none"
+            outcomeWin.style.display = "inline";
             setTimeout(() => {
                 paperBtn.style.backgroundColor = "transparent"; 
-            }, 500);
+                paperBtn.style.pointerEvents = "auto";
+                outcomeWin.style.display = "none";
+            }, 2000);
         }
         else if (opponentHand === 2) {
-            console.log("tie");
+            const outcomeTie = document.getElementById("tie");
             paperBtn.style.backgroundColor = "yellow";
+            paperBtn.style.pointerEvents = "none"
+            outcomeTie.style.display = "inline";
             setTimeout(() => {
-                paperBtn.style.backgroundColor = "transparent"; 
-            }, 500);
+                paperBtn.style.backgroundColor = "transparent";
+                paperBtn.style.pointerEvents = "auto"; 
+                outcomeTie.style.display = "none";
+            }, 2000);
         }
         else {
-            console.log("player loose");
+            const outcomeLoose = document.getElementById("player-loose");
             dispatch(playerLossAction());
             paperBtn.style.backgroundColor = "red";
+            paperBtn.style.pointerEvents = "none"
+            outcomeLoose.style.display = "inline";
             setTimeout(() => {
                 paperBtn.style.backgroundColor = "transparent"; 
-            }, 500);
+                paperBtn.style.pointerEvents = "auto";
+                outcomeLoose.style.display = "none";
+            }, 2000);
         }
     }
 
@@ -98,27 +107,39 @@ function Game( { playerWins, playerStreak, opponentWins, opponentStreak }) {
         GenerateOpponentHand()
         const scissorsBtn = document.getElementById("scissors");
         if (opponentHand === 1) {
-            console.log("player loose");
+            const outcomeLoose = document.getElementById("player-loose");
             dispatch(playerLossAction());
             scissorsBtn.style.backgroundColor = "red";
+            scissorsBtn.style.pointerEvents = "none"
+            outcomeLoose.style.display = "inline";
             setTimeout(() => {
                 scissorsBtn.style.backgroundColor = "transparent"; 
-            }, 500);
+                scissorsBtn.style.pointerEvents = "auto";
+                outcomeLoose.style.display = "none";
+            }, 2000);
         }
         else if (opponentHand === 2) {
-            console.log("player win");
+            const outcomeWin = document.getElementById("player-wins");
             dispatch(playerWinAction());
             scissorsBtn.style.backgroundColor = "green";
+            scissorsBtn.style.pointerEvents = "none"
+            outcomeWin.style.display = "inline";
             setTimeout(() => {
                 scissorsBtn.style.backgroundColor = "transparent"; 
-            }, 500);
+                scissorsBtn.style.pointerEvents = "auto";
+                outcomeWin.style.display = "none";
+            }, 2000);
         }
         else {
-            console.log("tie");
+            const outcomeTie = document.getElementById("tie");
             scissorsBtn.style.backgroundColor = "yellow";
+            scissorsBtn.style.pointerEvents = "none"
+            outcomeTie.style.display = "inline";
             setTimeout(() => {
-                scissorsBtn.style.backgroundColor = "transparent"; 
-            }, 500);
+                scissorsBtn.style.backgroundColor = "transparent";
+                scissorsBtn.style.pointerEvents = "auto"; 
+                outcomeTie.style.display = "none";
+            }, 2000);
         }
     }
 
