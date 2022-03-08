@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useSelector, useDispatch, connect } from "react-redux";
 import {
   playerLossAction,
@@ -11,6 +11,12 @@ import {
 
 function Game({ playerWins, playerStreak, opponentWins, opponentStreak }) {
   const dispatch = useDispatch();
+  const rockBtn = useRef();
+  const paperBtn = useRef();
+  const scissorsBtn = useRef();
+  const playerLoose = useRef();
+  const playerWin = useRef();
+  const tie = useRef();
 
   //Get current win/losses from redux store
   //Code below stops program from running streak x2 in case of loss/win
@@ -31,63 +37,52 @@ function Game({ playerWins, playerStreak, opponentWins, opponentStreak }) {
 
   //functions to handle pointerevents
   function PointerEventsNone() {
-    const rockBtn = document.getElementById("rock");
-    const paperBtn = document.getElementById("paper");
-    const scissorsBtn = document.getElementById("scissors");
-    rockBtn.style.pointerEvents = "none";
-    paperBtn.style.pointerEvents = "none";
-    scissorsBtn.style.pointerEvents = "none";
+    rockBtn.current.style.pointerEvents = "none";
+    paperBtn.current.style.pointerEvents = "none";
+    scissorsBtn.current.style.pointerEvents = "none";
   }
 
   function PointerEventsAuto() {
-    const rockBtn = document.getElementById("rock");
-    const paperBtn = document.getElementById("paper");
-    const scissorsBtn = document.getElementById("scissors");
-    rockBtn.style.pointerEvents = "auto";
-    paperBtn.style.pointerEvents = "auto";
-    scissorsBtn.style.pointerEvents = "auto";
+    rockBtn.current.style.pointerEvents = "auto";
+    paperBtn.current.style.pointerEvents = "auto";
+    scissorsBtn.current.style.pointerEvents = "auto";
   }
 
   function Rock() {
     GenerateOpponentHand();
-    const rockBtn = document.getElementById("rock");
-    const outcomeTie = document.getElementById("tie");
-    const outcomeLoose = document.getElementById("player-loose");
-    const outcomeWin = document.getElementById("player-wins");
     if (opponentHand === 1) {
-      rockBtn.style.backgroundColor = "yellow";
-      outcomeTie.style.display = "inline";
+      rockBtn.current.style.backgroundColor = "yellow";
+      tie.current.style.display = "inline";
       PointerEventsNone();
 
       setTimeout(() => {
-        rockBtn.style.backgroundColor = "transparent";
-        outcomeTie.style.display = "none";
+        rockBtn.current.style.backgroundColor = "transparent";
+        tie.current.style.display = "none";
         PointerEventsAuto();
       }, 2000);
-
-    } else if (opponentHand === 2) {
+    } 
+    else if (opponentHand === 2) {
       dispatch(playerLossAction());
-      rockBtn.style.backgroundColor = "red";
-      outcomeLoose.style.display = "inline";
+      rockBtn.current.style.backgroundColor = "red";
+      playerLoose.current.style.display = "inline";
       PointerEventsNone();
 
       setTimeout(() => {
-        rockBtn.style.backgroundColor = "transparent";
-        outcomeLoose.style.display = "none";
+        rockBtn.current.style.backgroundColor = "transparent";
+        playerLoose.current.style.display = "none";
         PointerEventsAuto();
       }, 2000);
 
     }
-
     else {
       dispatch(playerWinAction());
-      rockBtn.style.backgroundColor = "green";
-      outcomeWin.style.display = "inline";
+      rockBtn.current.style.backgroundColor = "green";
+      playerWin.current.style.display = "inline";
       PointerEventsNone();
       
       setTimeout(() => {
-        rockBtn.style.backgroundColor = "transparent";
-        outcomeWin.style.display = "none";
+        rockBtn.current.style.backgroundColor = "transparent";
+        playerWin.current.style.display = "none";
         PointerEventsAuto();
       }, 2000);
     }
@@ -95,37 +90,33 @@ function Game({ playerWins, playerStreak, opponentWins, opponentStreak }) {
 
   function Paper() {
     GenerateOpponentHand();
-    const paperBtn = document.getElementById("paper");
-    const outcomeTie = document.getElementById("tie");
-    const outcomeLoose = document.getElementById("player-loose");
-    const outcomeWin = document.getElementById("player-wins");
     if (opponentHand === 1) {
       dispatch(playerWinAction());
-      paperBtn.style.backgroundColor = "green";
-      outcomeWin.style.display = "inline";
+      paperBtn.current.style.backgroundColor = "green";
+      playerWin.current.style.display = "inline";
       PointerEventsNone();
       setTimeout(() => {
-        paperBtn.style.backgroundColor = "transparent";
-        outcomeWin.style.display = "none";
+        paperBtn.current.style.backgroundColor = "transparent";
+        playerWin.current.style.display = "none";
         PointerEventsAuto();
       }, 2000);
     } else if (opponentHand === 2) {
-      paperBtn.style.backgroundColor = "yellow";
-      outcomeTie.style.display = "inline";
+      paperBtn.current.style.backgroundColor = "yellow";
+      tie.current.style.display = "inline";
       PointerEventsNone();
       setTimeout(() => {
-        paperBtn.style.backgroundColor = "transparent";
-        outcomeTie.style.display = "none";
+        paperBtn.current.style.backgroundColor = "transparent";
+        tie.current.style.display = "none";
         PointerEventsAuto();
       }, 2000);
     } else {
       dispatch(playerLossAction());
-      paperBtn.style.backgroundColor = "red";
-      outcomeLoose.style.display = "inline";
+      paperBtn.current.style.backgroundColor = "red";
+      playerLoose.current.style.display = "inline";
       PointerEventsNone();
       setTimeout(() => {
-        paperBtn.style.backgroundColor = "transparent";
-        outcomeLoose.style.display = "none";
+        paperBtn.current.style.backgroundColor = "transparent";
+        playerLoose.current.style.display = "none";
         PointerEventsAuto();
       }, 2000);
     }
@@ -133,37 +124,33 @@ function Game({ playerWins, playerStreak, opponentWins, opponentStreak }) {
 
   function Scissor() {
     GenerateOpponentHand();
-    const scissorsBtn = document.getElementById("scissors");
-    const outcomeTie = document.getElementById("tie");
-    const outcomeLoose = document.getElementById("player-loose");
-    const outcomeWin = document.getElementById("player-wins");
     if (opponentHand === 1) {
       dispatch(playerLossAction());
-      scissorsBtn.style.backgroundColor = "red";
-      outcomeLoose.style.display = "inline";
+      scissorsBtn.current.style.backgroundColor = "red";
+      playerLoose.current.style.display = "inline";
       PointerEventsNone();
       setTimeout(() => {
-        scissorsBtn.style.backgroundColor = "transparent";
-        outcomeLoose.style.display = "none";
+        scissorsBtn.current.style.backgroundColor = "transparent";
+        playerLoose.current.style.display = "none";
         PointerEventsAuto();
       }, 2000);
     } else if (opponentHand === 2) {
       dispatch(playerWinAction());
-      scissorsBtn.style.backgroundColor = "green";
-      outcomeWin.style.display = "inline";
+      scissorsBtn.current.style.backgroundColor = "green";
+      playerWin.current.style.display = "inline";
       PointerEventsNone();
       setTimeout(() => {
-        scissorsBtn.style.backgroundColor = "transparent";
-        outcomeWin.style.display = "none";
+        scissorsBtn.current.style.backgroundColor = "transparent";
+        playerWin.current.style.display = "none";
         PointerEventsAuto();
       }, 2000);
     } else {
-      scissorsBtn.style.backgroundColor = "yellow";
-      outcomeTie.style.display = "inline";
+      scissorsBtn.current.style.backgroundColor = "yellow";
+      tie.current.style.display = "inline";
       PointerEventsNone();
       setTimeout(() => {
-        scissorsBtn.style.backgroundColor = "transparent";
-        outcomeTie.style.display = "none";
+        scissorsBtn.current.style.backgroundColor = "transparent";
+        tie.current.style.display = "none";
         PointerEventsAuto();
       }, 2000);
     }
@@ -198,15 +185,15 @@ function Game({ playerWins, playerStreak, opponentWins, opponentStreak }) {
       </div>
 
       <div className="outcome">
-        <h1 id="player-wins">Player Wins!</h1>
-        <h1 id="tie">Tie!</h1>
-        <h1 id="player-loose">Player Loose!</h1>
+        <h1 ref={playerWin} id="player-wins">Player Wins!</h1>
+        <h1 ref={tie} id="tie">Tie!</h1>
+        <h1 ref={playerLoose} id="player-loose">Player Loose!</h1>
       </div>
 
       <div className="buttons">
-        <button id="rock" onClick={Rock}></button>
-        <button id="paper" onClick={Paper}></button>
-        <button id="scissors" onClick={Scissor}></button>
+        <button ref={rockBtn} id="rock" onClick={Rock}></button>
+        <button ref={paperBtn} id="paper" onClick={Paper}></button>
+        <button ref={scissorsBtn} id="scissors" onClick={Scissor}></button>
       </div>
 
       <button id="restart-game" onClick={() => dispatch(clearRun())}>
